@@ -1,0 +1,100 @@
+set NERDTree
+set surround
+set argtextobj
+set clipboard+=unnamed
+set relativenumber
+set showmode
+set ideavimsupport+=dialog
+"set ideavimsupport+=singleline
+
+" Which key configuration
+set which-key
+set notimeout
+
+" Keybindings
+let mapleader = ","
+
+nmap <leader>ff <Action>(GotoFile)
+nmap <leader>ft <Action>(GotoClass)
+nmap <leader>fs <Action>(GotoSymbol)
+nmap <leader>fa <Action>(GotoAction)
+nmap <leader>fr <Action>(FindUsages)
+nmap <leader>fi <Action>(GotoImplementation)
+
+nmap <leader>gc <Action>(ActivateCommitToolWindow)
+nmap <leader>gf <Action>(Git.Pull)
+nmap <leader>gl <Action>(Vcs.Show.Log)
+nmap <leader>gb <Action>(Vcs.ShowBranches)
+nmap <leader>gn <Action>(Git.CreateNewBranch)
+
+nmap <leader>r <Action>(Refactorings.QuickListPopupAction)
+nmap <leader>s <Action>(FileStructurePopup)
+
+nmap <leader>=f <Action>(ReformatCode)
+nmap <leader>=o <Action>(OptimizeImports)
+
+nmap <leader>mn <Action>(MethodDown)
+nmap <leader>mN <Action>(MethodUp)
+
+nmap <leader>en <Action>(GotoNextError)
+nmap <leader>eN <Action>(GotoPreviousError)
+nmap <leader>ed <Action>(ShowErrorDescription)
+nmap <leader>el <Action>(ActivateProblemsViewToolWindow)
+
+nmap <leader>wl <Action>(NextSplitter)
+nmap <leader>wh <Action>(PrevSplitter)
+nmap <leader>w/ <Action>(SplitVertically)
+nmap <leader>w- <Action>(SplitHorizontally)
+
+nmap <leader>od <Action>(QuickJavaDoc)
+
+nmap <leader>, :source ~/.ideavimrc<CR>
+nmap <leader>/ <Action>(FindInPath)
+
+
+" Keybinding descriptions
+let g:WhichKey_ShowVimActions = "false"
+
+let g:WhichKeyDesc_find = "<leader>f Find"
+let g:WhichKeyDesc_find_file = "<leader>ff File"
+let g:WhichKeyDesc_find_type = "<leader>ft Type"
+let g:WhichKeyDesc_find_symbol = "<leader>fs Symbol"
+let g:WhichKeyDesc_find_action = "<leader>fa Action"
+let g:WhichKeyDesc_find_reference = "<leader>fr Reference"
+let g:WhichKeyDesc_find_implementation = "<leader>fi Implementation"
+
+let g:WhichKeyDesc_method = "<leader>m Method"
+let g:WhichKeyDesc_method_next = "<leader>mn Next"
+let g:WhichKeyDesc_method_prev = "<leader>mN Previous"
+
+let g:WhichKeyDesc_git = "<leader>g Git"
+let g:WhichKeyDesc_git_commit = "<leader>gc Commit"
+let g:WhichKeyDesc_git_pull = "<leader>gf Pull"
+let g:WhichKeyDesc_git_log = "<leader>gl Log"
+let g:WhichKeyDesc_git_checkout = "<leader>gb Branches"
+let g:WhichKeyDesc_git_new = "<leader>gn New branch"
+
+let g:WhichKeyDesc_refactor = "<leader>r Refactor"
+let g:WhichKeyDesc_structure = "<leader>s Structure"
+
+let g:WhichKeyDesc_format = "<leader>= Format"
+let g:WhichKeyDesc_format_file = "<leader>=f File"
+let g:WhichKeyDesc_format_imports = "<leader>=o Organize imports"
+
+let g:WhichKeyDesc_error = "<leader>e Errors"
+let g:WhichKeyDesc_error_next = "<leader>en Next"
+let g:WhichKeyDesc_error_previous = "<leader>eN Previous"
+let g:WhichKeyDesc_error_description = "<leader>ed Show description"
+let g:WhichKeyDesc_error_list = "<leader>el List"
+
+let g:WhichKeyDesc_reload = "<leader>, Reload config"
+let g:WhichKeyDesc_reload = "<leader>/ Find in project"
+
+let g:WhichKeyDesc_window = "<leader>w Window"
+let g:WhichKeyDesc_window_next = "<leader>wl Right"
+let g:WhichKeyDesc_window_previous = "<leader>wh Left"
+let g:WhichKeyDesc_window_splith = "<leader>w/ Split horizontal"
+let g:WhichKeyDesc_window_splitv = "<leader>w- Split vertical"
+
+let g:WhichKeyDesc_other = "<leader>o Other"
+let g:WhichKeyDesc_other = "<leader>od Show documentation"
