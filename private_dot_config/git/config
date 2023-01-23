@@ -1,0 +1,19 @@
+[user]
+	name = Dillen Meijboom
+	email = work@dillen.dev
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM3qdw1DknYTEUeIuyRqCitz/Mqo5m1+a0g8/KdfQ2wr
+[core]
+	excludesFile = ~/.gitignore-global
+	pager = delta
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main
+[http]
+	cookiefile = /Users/dmeijboom/.gitcookies
+[rerere]
+	enabled = true
+[push]
+	autoSetupRemote = true
+[gpg]
+	format = ssh

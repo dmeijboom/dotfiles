@@ -1,0 +1,79 @@
+# Basically Oh-My-ZSH without all the stuff I don't need
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000000
+SAVEHIST=10000000
+
+setopt BANG_HIST                 # Treat the '!' character specially during expansion.
+setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
+setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
+setopt SHARE_HISTORY             # Share history between all sessions.
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first when trimming history.
+setopt HIST_IGNORE_DUPS          # Don't record an entry that was just recorded again.
+setopt HIST_IGNORE_ALL_DUPS      # Delete old recorded entry if new entry is a duplicate.
+setopt HIST_FIND_NO_DUPS         # Do not display a line previously found.
+setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
+setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
+setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
+setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+setopt HIST_BEEP                 # Beep when accessing nonexistent history.
+
+export CLICOLOR=1
+
+# Binary files can be found in:
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.krew/bin:$PATH"
+export PATH="$HOME/Library/Python/3.10/bin:$PATH"
+
+# Make sure 1Password SSH signing works properly
+source /Users/dmeijboom/.config/op/plugins.sh
+export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
+# Autocompletion
+autoload compinit
+compinit
+
+# Plugins
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.fzf.zsh
+
+# Aliases
+alias g="gitx"
+alias k="kubectl --context=dev-cloud"
+alias c="chezmoi"
+
+# Prompt
+eval "$(starship init zsh)"
+
+precmd () {print -Pn "\e]0;%~\a"}
+
+# Autojump
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+
+# Minio S3
+export AWS_ACCESS_KEY_ID={{ onepasswordRead "op://Private/jj6gk5t2wrmrulbkmkx6ihqona/username" }}
+export AWS_SECRET_ACCESS_KEY={{ onepasswordRead "op://Private/jj6gk5t2wrmrulbkmkx6ihqona/password" }}
+
+# Docker: enable buildkit and some utilities
+export DOCKER_BUILDKIT=1
+
+function dsh() {
+  docker run --rm -it -v $PWD:/data -w /data --entrypoint /bin/sh $1
+}
+
+function dshd() {
+  docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v $PWD:/data -w /data --entrypoint /bin/sh $1
+}
+
+# Pinit
+export PINIT_FILENAME=".dev/init"
+
+# Billing
+export BILLING_DB_PATH="$HOME/DevProjects/github/dillendev/billing-rs/data"
+
+if [ -f "$PINIT_FILENAME" ]; then
+  source <(pinit)
+fi
