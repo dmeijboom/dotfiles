@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Config
+current-context: pinniped-azure-review-acc
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJ0RENDQVZ1Z0F3SUJBZ0lRRU1ySjdTclV5cTdWOTFuWmZjVjFUakFLQmdncWhrak9QUVFEQWpBcU1TZ3cKSmdZRFZRUURFeDlRYVc1dWFYQmxaQ0JKYlhCbGNuTnZibUYwYVc5dUlGQnliM2g1SUVOQk1DQVhEVEl4TURneQpOREV3TlRZMU1Gb1lEekl4TWpFd056TXhNVEExTnpBd1dqQXFNU2d3SmdZRFZRUURFeDlRYVc1dWFYQmxaQ0JKCmJYQmxjbk52Ym1GMGFXOXVJRkJ5YjNoNUlFTkJNRmt3RXdZSEtvWkl6ajBDQVFZSUtvWkl6ajBEQVFjRFFnQUUKNVBOdUV6ZDJKOVBxNHhOQVNNVkRxa1dnM25vZmg5R2FIMGUrblhnTzJmT0cxN2RxNHI4TEo4ZXh6M0ZMbUt3YgpCMWMrdnMvUHZMYnJMWXhWM1MrLzQ2TmhNRjh3RGdZRFZSMFBBUUgvQkFRREFnS0VNQjBHQTFVZEpRUVdNQlFHCkNDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01CMEdBMVVkRGdRV0JCVDAKY1RZWXBsdkdwZUYvNU9FTlI0NGxGbytUZVRBS0JnZ3Foa2pPUFFRREFnTkhBREJFQWlCdkt0UktlRXo1SkhGMQpENk85NUtLZFRuQm9NcjdwUnRyYXRBZVVGc21aWVFJZ0VCalpHV2xSUzN1WmRqaTl5K2RlMDlvcCtTVmdUQWY1ClZ2b2hRam5UVTdVPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    server: https://51.124.20.52
+  name: azure-core-prod
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJ0akNDQVZ1Z0F3SUJBZ0lRQjdMODNMaUJMYVQ3YWczeFNaTEsxakFLQmdncWhrak9QUVFEQWpBcU1TZ3cKSmdZRFZRUURFeDlRYVc1dWFYQmxaQ0JKYlhCbGNuTnZibUYwYVc5dUlGQnliM2g1SUVOQk1DQVhEVEl4TURneApPREE0TlRNeE1sb1lEekl4TWpFd056STFNRGcxTXpJeVdqQXFNU2d3SmdZRFZRUURFeDlRYVc1dWFYQmxaQ0JKCmJYQmxjbk52Ym1GMGFXOXVJRkJ5YjNoNUlFTkJNRmt3RXdZSEtvWkl6ajBDQVFZSUtvWkl6ajBEQVFjRFFnQUUKUVh3cnluQ2pRbGtMY0NJdEVnT1Fvelc4WnpaNlFtdVhBaFVDdG1ZWUtNR0R0MjdwYmU3K3RCMEFMU3R3MHA2cApINnJEWW42Y0xUUkZkVU1MeXRzVVBhTmhNRjh3RGdZRFZSMFBBUUgvQkFRREFnS0VNQjBHQTFVZEpRUVdNQlFHCkNDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01CMEdBMVVkRGdRV0JCUm8KNlIyVGRxd21iaDRoWnYzT3FzZko4MlBFdURBS0JnZ3Foa2pPUFFRREFnTkpBREJHQWlFQTlOd2tGbFA2K3hOcQpVa3pseFBXRjJlZUZPTXBJejcxWElxVTl6dmE4RWRZQ0lRREQrbG14dC9oeFF4NWNJSVdrbWExV2JMTDVTbytKCmlLc3pwbXZqL0RRUnJnPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+    server: https://20.93.241.243
+  name: azure-review-acc
+contexts:
+- context:
+    cluster: azure-core-prod
+    user: pinniped-azure-core-prod
+  name: pinniped-azure-core-prod
+- context:
+    cluster: azure-review-acc
+    user: pinniped-azure-review-acc
+  name: pinniped-azure-review-acc
+users:
+- name: pinniped-azure-core-prod
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - login
+      - oidc
+      - --enable-concierge
+      - --concierge-authenticator-name=haven-authenticator
+      - --concierge-authenticator-type=jwt
+       --concierge-endpoint=https://51.124.20.52
+      - --concierge-ca-bundle-data=LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJ0RENDQVZ1Z0F3SUJBZ0lRRU1ySjdTclV5cTdWOTFuWmZjVjFUakFLQmdncWhrak9QUVFEQWpBcU1TZ3cKSmdZRFZRUURFeDlRYVc1dWFYQmxaQ0JKYlhCbGNuTnZibUYwYVc5dUlGQnliM2g1SUVOQk1DQVhEVEl4TURneQpOREV3TlRZMU1Gb1lEekl4TWpFd056TXhNVEExTnpBd1dqQXFNU2d3SmdZRFZRUURFeDlRYVc1dWFYQmxaQ0JKCmJYQmxjbk52Ym1GMGFXOXVJRkJ5YjNoNUlFTkJNRmt3RXdZSEtvWkl6ajBDQVFZSUtvWkl6ajBEQVFjRFFnQUUKNVBOdUV6ZDJKOVBxNHhOQVNNVkRxa1dnM25vZmg5R2FIMGUrblhnTzJmT0cxN2RxNHI4TEo4ZXh6M0ZMbUt3YgpCMWMrdnMvUHZMYnJMWXhWM1MrLzQ2TmhNRjh3RGdZRFZSMFBBUUgvQkFRREFnS0VNQjBHQTFVZEpRUVdNQlFHCkNDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01CMEdBMVVkRGdRV0JCVDAKY1RZWXBsdkdwZUYvNU9FTlI0NGxGbytUZVRBS0JnZ3Foa2pPUFFRREFnTkhBREJFQWlCdkt0UktlRXo1SkhGMQpENk85NUtLZFRuQm9NcjdwUnRyYXRBZVVGc21aWVFJZ0VCalpHV2xSUzN1WmRqaTl5K2RlMDlvcCtTVmdUQWY1ClZ2b2hRam5UVTdVPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+      - --issuer=https://supervisor.haven.vng.cloud
+      - --request-audience=core.haven.vng.cloud
+      - --upstream-identity-provider-name=dex
+      command: pinniped
+      env: null
+      interactiveMode: IfAvailable
+      provideClusterInfo: false
+- name: pinniped-azure-review-acc
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      args:
+      - login
+      - oidc
+      - --enable-concierge
+      - --concierge-authenticator-name=haven-authenticator
+      - --concierge-authenticator-type=jwt
+      - --concierge-endpoint=https://20.93.241.243
+      - --concierge-ca-bundle-data=LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJ0akNDQVZ1Z0F3SUJBZ0lRQjdMODNMaUJMYVQ3YWczeFNaTEsxakFLQmdncWhrak9QUVFEQWpBcU1TZ3cKSmdZRFZRUURFeDlRYVc1dWFYQmxaQ0JKYlhCbGNuTnZibUYwYVc5dUlGQnliM2g1SUVOQk1DQVhEVEl4TURneApPREE0TlRNeE1sb1lEekl4TWpFd056STFNRGcxTXpJeVdqQXFNU2d3SmdZRFZRUURFeDlRYVc1dWFYQmxaQ0JKCmJYQmxjbk52Ym1GMGFXOXVJRkJ5YjNoNUlFTkJNRmt3RXdZSEtvWkl6ajBDQVFZSUtvWkl6ajBEQVFjRFFnQUUKUVh3cnluQ2pRbGtMY0NJdEVnT1Fvelc4WnpaNlFtdVhBaFVDdG1ZWUtNR0R0MjdwYmU3K3RCMEFMU3R3MHA2cApINnJEWW42Y0xUUkZkVU1MeXRzVVBhTmhNRjh3RGdZRFZSMFBBUUgvQkFRREFnS0VNQjBHQTFVZEpRUVdNQlFHCkNDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WSFJNQkFmOEVCVEFEQVFIL01CMEdBMVVkRGdRV0JCUm8KNlIyVGRxd21iaDRoWnYzT3FzZko4MlBFdURBS0JnZ3Foa2pPUFFRREFnTkpBREJHQWlFQTlOd2tGbFA2K3hOcQpVa3pseFBXRjJlZUZPTXBJejcxWElxVTl6dmE4RWRZQ0lRREQrbG14dC9oeFF4NWNJSVdrbWExV2JMTDVTbytKCmlLc3pwbXZqL0RRUnJnPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+      - --issuer=https://supervisor.haven.vng.cloud
+      - --request-audience=nlx.reviews
+      - --upstream-identity-provider-name=dex
+      command: pinniped
+      env: null
+      interactiveMode: IfAvailable
+      provideClusterInfo: false
